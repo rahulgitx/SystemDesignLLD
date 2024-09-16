@@ -1,6 +1,6 @@
 package org.repository.models.vehicle;
 
-public class Vehicle {
+public abstract class Vehicle {
     private String vehicleId;
     private VehicleType vehicleType;
 

@@ -1,10 +1,12 @@
 package org.example.services;
 
 import org.example.models.Item;
+import org.example.models.MiddleManBody;
 import org.example.models.Order;
 import org.example.repository.JpaRepository;
 import org.example.utils.MiddleManUtils;
 
+import java.time.Instant;
 import java.util.HashMap;
 
 import static org.example.utils.MiddleManUtils.middleManHeaders;
@@ -52,9 +54,9 @@ public class MyService implements Service{
 
     private boolean updateTheMiddleMan(Order order, Item item, String middleManName){
         // make a post call to amazon/flipkart regarding the order made and updated item
-
         String url = middleManUrl.get(middleManName);
         HashMap<String, String> headers = middleManHeaders.get(middleManName);
+        MiddleManBody body = new MiddleManBody(order.getItemId(), Instant.now(), order.getName(), item, order.getCost());
         try{
             Response<String> response = post(url, body, headers, String.class);
         }catch( Exception e){
